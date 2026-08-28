@@ -46,3 +46,23 @@ def test_limpar_texto_e_contar_palavra():
     limpo = limpar_texto(texto)
     assert limpo == "ciência dados dados"
     assert contar_palavra(limpo, "dados") == 2
+
+
+def test_validar_quantidade_de_termos():
+    import main
+
+    assert main.parsear_termos("Ciência de Dados") == ["Ciência de Dados"]
+    assert main.parsear_termos("A, B, C, D") == ["A", "B", "C", "D"]
+    assert main.parsear_termos("A, B, C, D, E") == ["A", "B", "C", "D", "E"]
+
+    try:
+        main.parsear_termos("")
+        assert False, "Deveria rejeitar entrada vazia"
+    except ValueError:
+        pass
+
+    try:
+        main.parsear_termos("A, B, C, D, E, F")
+        assert False, "Deveria rejeitar mais de 5 termos"
+    except ValueError:
+        pass
