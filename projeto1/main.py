@@ -161,9 +161,30 @@ def resolver_url_wikipedia(termo: str, session: requests.Session):
 
     return None, False
 
+
+def parsear_termos(texto: str) -> list[str]:
+    if texto is None:
+        raise ValueError("Digite pelo menos 1 termo.")
+
+    lista_termos = [
+        termo.strip()
+        for termo in re.split(r"[\n,;]+", texto)
+        if termo and termo.strip()
+    ]
+
+    if not lista_termos:
+        raise ValueError("Digite pelo menos 1 termo.")
+
+    if len(lista_termos) > 5:
+        raise ValueError("Digite no máximo 5 termos.")
+
+    return lista_termos
+
+
 st.title("Comparador de Web Scraping")
 
 termos = st.text_area(
+    "Digite de 1 a 5 termos",
     placeholder=(
         "Universidade Federal do Rio Grande do Norte, "
         "Ciência de Dados, "
@@ -178,22 +199,20 @@ palavra = st.text_input("Digite a palavra que deseja pesquisar")
 
 if st.button("Executar Scraping"):
 
-    lista_termos = [
-        termo.strip() for termo in termos.split(",") if termo.strip()
-    ]
-
-    if len(lista_termos) != 5:
-        st.error("Digite exatamente 5 termos.")
+    try:
+        lista_termos = parsear_termos(termos)
+    except ValueError as erro:
+        st.error(str(erro))
         st.stop()
 
     if not palavra.strip():
         st.error("Digite uma palavra para pesquisar.")
         st.stop()
 
-    st.subheader("Resolvendo páginas na Wikipédia")
+        st.subheader("Resolvendo páginas na Wikipédia")
 
     urls_wikipedia = []
-    houve_falha = False
+    termos_ignorados = []
 
     with requests.Session() as session:
         with st.spinner("Validando links..."):
@@ -205,7 +224,7 @@ if st.button("Executar Scraping"):
                         f"Não foi possível encontrar uma página da Wikipédia "
                         f"para **{termo}**. Verifique a grafia do termo."
                     )
-                    houve_falha = True
+                    termos_ignorados.append(termo)
                     continue
 
                 if foi_corrigido:
@@ -215,8 +234,16 @@ if st.button("Executar Scraping"):
                 st.code(url)
                 urls_wikipedia.append(url)
 
-    if houve_falha:
+    if termos_ignorados:
+        st.warning(
+            "Os seguintes termos foram ignorados por falta de página "
+            f"correspondente: {', '.join(termos_ignorados)}"
+        )
+
+    if not urls_wikipedia:
+        st.error("Nenhum termo válido foi encontrado. Corrija os termos e tente novamente.")
         st.stop()
+
 
     try:
         texto_requests, tempo_requests = scraping_requests(urls_wikipedia)
