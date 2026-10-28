@@ -1,0 +1,323 @@
+{
+ "_aviso": "RASCUNHO: componentes e créditos extraídos do texto do PDF; 'prerequisitos' e 'periodo' NÃO constam no texto extraído (setas/colunas do fluxograma) e precisam ser conferidos/preenchidos a partir do PDF.",
+ "curso": {
+  "codigo": "TADS",
+  "nome": "Tecnologia em Análise e Desenvolvimento de Sistemas",
+  "instituicao": "UFRN",
+  "versao": "2019"
+ },
+ "componentes": [
+  {
+   "codigo": "TAD0001",
+   "nome": "Fundamentos da Computação",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0102",
+   "nome": "Algoritmos e Programação",
+   "creditos": 6,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0103",
+   "nome": "Banco de Dados",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0105",
+   "nome": "Matemática Aplicada I",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0006",
+   "nome": "Sistemas Operacionais",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0012",
+   "nome": "Processo de Desenvolvimento de Software",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0004",
+   "nome": "Análise e Projeto Orientado a Objetos",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0009",
+   "nome": "Programação Orientada a Objetos",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0013",
+   "nome": "Matemática Aplicada II",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0111",
+   "nome": "Programação Visual e Autoria Web",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0114",
+   "nome": "Redes de Computadores",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0015",
+   "nome": "Empreendedorismo",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0018",
+   "nome": "Processamento Digital de Imagens",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0019",
+   "nome": "Programação Web",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0020",
+   "nome": "Estruturas de Dados",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0123",
+   "nome": "Sistemas Digitais",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0022",
+   "nome": "Estatística Aplicada",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0016",
+   "nome": "Vertentes Produtivas nas Ciências Agrárias",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0025",
+   "nome": "Inteligência Computacional",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0027",
+   "nome": "Programação para Dispositivos Móveis",
+   "creditos": 6,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0028",
+   "nome": "Planejamento e Gerência de Projetos",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0029",
+   "nome": "Arquitetura de Software",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0030",
+   "nome": "Microcontroladores",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0156",
+   "nome": "Projetos Aplicados I",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0108",
+   "nome": "Contexto Geográfico Regional",
+   "creditos": 2,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0032",
+   "nome": "Metodologia do Trabalho Científico",
+   "creditos": 2,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0035",
+   "nome": "Legislação e Ética em TI",
+   "creditos": 2,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0157",
+   "nome": "Projetos Aplicados II",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0140",
+   "nome": "Trabalho de Conclusão de Curso II",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0201",
+   "nome": "Raciocínio Lógico",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0202",
+   "nome": "Leitura e Produção de Textos",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0203",
+   "nome": "Gestão de Qualidade de Software",
+   "creditos": 3,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0204",
+   "nome": "Fundamentos e Técnicas em Ciências de Dados",
+   "creditos": 4,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0205",
+   "nome": "Trabalho de Conclusão de Curso I",
+   "creditos": 2,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "TAD0160",
+   "nome": "Sistemas Distribuídos",
+   "creditos": 2,
+   "tipo": "obrigatoria",
+   "periodo": null
+  },
+  {
+   "codigo": "OPTATIVAS",
+   "nome": "Optativas",
+   "creditos": 16,
+   "tipo": "optativa",
+   "periodo": null
+  },
+  {
+   "codigo": "ATIV-COMP",
+   "nome": "Atividades Complementares",
+   "creditos": null,
+   "carga_horaria": 180,
+   "tipo": "atividade",
+   "periodo": null
+  }
+ ],
+ "prerequisitos": [
+  {
+   "componente": "TAD0009",
+   "requisito": "TAD0102",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0020",
+   "requisito": "TAD0102",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0013",
+   "requisito": "TAD0105",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0019",
+   "requisito": "TAD0111",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0027",
+   "requisito": "TAD0009",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0004",
+   "requisito": "TAD0012",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0029",
+   "requisito": "TAD0004",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0157",
+   "requisito": "TAD0156",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0140",
+   "requisito": "TAD0205",
+   "grupo": 1
+  },
+  {
+   "componente": "TAD0030",
+   "requisito": "TAD0123",
+   "grupo": 1
+  }
+ ]
+}
