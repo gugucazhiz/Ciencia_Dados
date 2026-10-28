@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estrutura Curricular — consulta em 3 bancos</title>
+<style>
+  :root { color-scheme: light dark; --bd: #8884; --ac: #2b6cb0; }
+  body { font: 15px/1.45 system-ui, sans-serif; max-width: 980px; margin: 24px auto; padding: 0 16px; }
+  h1 { font-size: 1.3rem; margin: 0 0 4px; }
+  .sub { opacity: .7; margin-bottom: 16px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: end; margin-bottom: 12px; }
+  label { display: flex; flex-direction: column; font-size: .8rem; gap: 2px; }
+  select, input, button { font: inherit; padding: 6px 8px; border: 1px solid var(--bd); border-radius: 6px; background: transparent; color: inherit; }
+  button { background: var(--ac); color: #fff; border-color: var(--ac); cursor: pointer; }
+  button.sec { background: transparent; color: inherit; border-color: var(--bd); }
+  #q { min-width: 240px; }
+  .tempo { margin: 10px 0; padding: 8px 12px; border: 1px solid var(--bd); border-radius: 6px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--bd); }
+  th { font-size: .8rem; opacity: .7; }
+  .err { color: #c53030; }
+  .wrap { overflow-x: auto; }
+</style>
+</head>
+<body>
+<h1>Estrutura curricular — consulta em 3 bancos</h1>
+<div class="sub">Mesmos dados em PostgreSQL (relacional), MongoDB (documentos) e Neo4j (grafo).</div>
+
+<div class="bar">
+  <label>Curso / versão <select id="curso"></select></label>
+  <label>Banco
+    <select id="db">
+      <option value="postgres">PostgreSQL</option>
+      <option value="mongo">MongoDB</option>
+      <option value="neo4j">Neo4j</option>
+    </select>
+  </label>
+  <label>Consulta
+    <select id="op">
+      <option value="busca">Buscar por nome ou código</option>
+      <option value="prerequisitos">Pré-requisitos diretos de…</option>
+      <option value="dependentes">Quais componentes exigem…</option>
+      <option value="cadeia">Cadeia completa de pré-requisitos de…</option>
+    </select>
+  </label>
+  <label>Termo <input id="q" placeholder="ex.: banco  |  TAD0029"></label>
+  <button id="go">Consultar</button>
+  <button id="cmp" class="sec">Comparar os 3 bancos</button>
+</div>
+
+<div id="tempo" class="tempo" hidden></div>
+<div id="out" class="wrap"></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const NOMES = { postgres: "PostgreSQL", mongo: "MongoDB", neo4j: "Neo4j" };
+const COLS = [["codigo","Código"],["nome","Componente"],["creditos","Créd."],["carga_horaria","CH (h)"],
+              ["tipo","Tipo"],["periodo","Período"],["nivel","Nível"],["grupo","Grupo (E/OU)"]];
+
+function params() {
+  const [curso, versao] = ($("curso").value || "TADS|2019").split("|");
+  return new URLSearchParams({ op: $("op").value, q: $("q").value, curso, versao });
+}
+
+async function chamar(url) {
+  const r = await fetch(url);
+  const j = await r.json();
+  if (!r.ok) throw new Error(j.detail || r.statusText);
+  return j;
+}
+
+function tabela(rows) {
+  if (!rows.length) return "<p>Nenhum resultado.</p>";
+  const cols = COLS.filter(([k]) => rows.some(r => r[k] != null));
+  return "<table><thead><tr>" + cols.map(([, t]) => `<th>${t}</th>`).join("") + "</tr></thead><tbody>" +
+    rows.map(r => "<tr>" + cols.map(([k]) => `<td>${esc(r[k])}</td>`).join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+
+$("go").onclick = async () => {
+  const p = params(); p.set("db", $("db").value);
+  $("out").innerHTML = ""; $("tempo").hidden = true;
+  const t0 = performance.now();
+  try {
+    const j = await chamar("/api/consulta?" + p);
+    const total = performance.now() - t0;
+    $("tempo").hidden = false;
+    $("tempo").innerHTML = `<b>${NOMES[j.db]}</b> — ${j.total} resultado(s) · consulta no banco: <b>${j.tempo_ms} ms</b> · tempo total de resposta (navegador → API → banco → navegador): <b>${total.toFixed(1)} ms</b>`;
+    $("out").innerHTML = tabela(j.resultados);
+  } catch (e) { $("out").innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+};
+
+$("cmp").onclick = async () => {
+  const p = params();
+  $("out").innerHTML = "<p>Executando 30 repetições em cada banco…</p>"; $("tempo").hidden = true;
+  try {
+    const j = await chamar("/api/benchmark?" + p);
+    $("out").innerHTML = "<table><thead><tr><th>Banco</th><th>Média (ms)</th><th>Mediana (ms)</th><th>Mín (ms)</th><th>p95 (ms)</th><th>Execuções</th></tr></thead><tbody>" +
+      Object.entries(j).map(([db, m]) => m.erro
+        ? `<tr><td>${NOMES[db]}</td><td colspan="5" class="err">${esc(m.erro)}</td></tr>`
+        : `<tr><td>${NOMES[db]}</td><td>${m.media_ms}</td><td>${m.mediana_ms}</td><td>${m.min_ms}</td><td>${m.p95_ms}</td><td>${m.execucoes}</td></tr>`).join("") +
+      "</tbody></table>";
+  } catch (e) { $("out").innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+};
+
+$("q").addEventListener("keydown", e => { if (e.key === "Enter") $("go").click(); });
+
+(async () => {
+  try {
+    const cs = await chamar("/api/cursos");
+    $("curso").innerHTML = cs.map(c => `<option value="${esc(c.codigo)}|${esc(c.versao)}">${esc(c.codigo)} ${esc(c.versao)} — ${esc(c.nome)}</option>`).join("");
+  } catch (e) { $("curso").innerHTML = '<option value="TADS|2019">TADS 2019</option>'; }
+})();
+</script>
+</body>
+</html>
